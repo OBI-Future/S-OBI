@@ -1,0 +1,59 @@
+# Local dataset archive and extracted data. The tracked data/README.md and
+# data/SHA256SUMS remain visible because these two files are explicitly kept.
+data/*
+!data/README.md
+!data/SHA256SUMS
+
+# The release archive and all raw/derived dataset formats are local only.
+*.zip
+*.xlsx
+*.xls
+*.xlsm
+*.csv
+*.tsv
+*.jsonl
+*.json
+*.jpg
+*.jpeg
+*.png
+
+# Local runtime outputs and caches.
+.runtime/
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+coverage.xml
+
+# Predictions and generated evaluation results.
+predictions/
+results/
+**/predictions*.jsonl
+**/predictions*.csv
+**/metrics_summary.json
+**/per_item_scores.csv
+
+# Secrets and local API/model configuration.
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*secret*
+*secrets*
+*credentials*
+config.local.*
+**/api_config.*
+**/*api*config*
+
+# Common local/editor files.
+.DS_Store
+.idea/
+.vscode/

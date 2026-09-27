@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sobi-benchmark"
+version = "1.0.0"
+description = "Data loading and reproducible evaluation helpers for the sentence-OBI benchmark"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+authors = [{ name = "OBI-Future" }]
+dependencies = []
+
+[project.scripts]
+sobi-inspect = "sobi.inspect:main"
+sobi-validate = "sobi.validate:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

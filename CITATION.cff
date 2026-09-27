@@ -1,0 +1,37 @@
+cff-version: 1.2.0
+title: "S-OBI: Sentence-Level Oracle Bone Inscription Understanding"
+message: "If you use S-OBI, please cite the ICIG 2026 paper."
+type: software
+version: 1.0.0
+authors:
+  - family-names: Li
+    given-names: Ziqi
+  - family-names: Chen
+    given-names: Zijian
+  - family-names: Chen
+    given-names: Tingzhu
+  - family-names: Zhai
+    given-names: Guangtao
+repository-code: "https://github.com/OBI-Future/S-OBI"
+abstract: "A benchmark and evaluation toolkit for multimodal large language models on sentence-level Oracle Bone Inscription understanding."
+keywords:
+  - Oracle Bone Inscription
+  - multimodal large language models
+  - benchmark
+  - image understanding
+  - ancient Chinese
+preferred-citation:
+  type: conference-paper
+  title: "Beyond Single Character: Evaluating MLLMs for Sentence-Level Oracle Bone Inscription Understanding"
+  authors:
+    - family-names: Li
+      given-names: Ziqi
+    - family-names: Chen
+      given-names: Zijian
+    - family-names: Chen
+      given-names: Tingzhu
+    - family-names: Zhai
+      given-names: Guangtao
+  conference:
+    name: "International Conference on Image and Graphics (ICIG)"
+  year: 2026
