@@ -57,3 +57,6 @@ config.local.*
 .DS_Store
 .idea/
 .vscode/
+
+# Public paper figures only; benchmark data and generated images remain ignored.
+!assets/figures/*.png

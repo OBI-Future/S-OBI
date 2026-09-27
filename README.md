@@ -1,47 +1,97 @@
-# S-OBI: Sentence-Level Oracle Bone Inscription Understanding
+<div align="center">
 
-[English](README.md) · [中文](README_zh.md)
+# S-OBI
 
 **Beyond Single Character: Evaluating MLLMs for Sentence-Level Oracle Bone Inscription Understanding**
 
-S-OBI is a benchmark for evaluating multimodal large language models (MLLMs) on sentence-level Oracle Bone Inscription (OBI) understanding. It is associated with an ICIG 2026 publication by Ziqi Li, Zijian Chen, Tingzhu Chen, and Guangtao Zhai.
+Ziqi Li · Zijian Chen · Tingzhu Chen · Guangtao Zhai · **ICIG 2026**
 
-The benchmark is designed to test whether a model can connect OBI images with sentence meaning, semantic structure, ordering, punctuation, and context. The benchmark archive is distributed as a single release asset; the Git repository contains the evaluation toolkit and documentation only.
+<p>
+  <a href="https://github.com/OBI-Future/S-OBI/releases/tag/v1.0.0"><img src="https://img.shields.io/badge/ICIG-2026-6f42c1.svg" alt="ICIG 2026"></a>
+  <a href="https://github.com/OBI-Future/S-OBI"><img src="https://img.shields.io/badge/python-3.10%2B-3776AB.svg?logo=python&logoColor=white" alt="Python 3.10+"></a>
+  <a href="https://github.com/OBI-Future/S-OBI/actions/workflows/tests.yml"><img src="https://github.com/OBI-Future/S-OBI/actions/workflows/tests.yml/badge.svg" alt="Tests"></a>
+  <a href="https://github.com/OBI-Future/S-OBI/releases/tag/v1.0.0"><img src="https://img.shields.io/badge/dataset-695%20QA-0f766e.svg" alt="695 benchmark questions"></a>
+</p>
 
-## Benchmark at a glance
+<p>
+  <a href="#overview">Overview</a> ·
+  <a href="#download-the-dataset">Dataset</a> ·
+  <a href="#quickstart">Quickstart</a> ·
+  <a href="#evaluation-and-reporting">Evaluation</a> ·
+  <a href="#citation">Citation</a>
+</p>
 
-| Component | What it evaluates | Items |
-| --- | --- | ---: |
-| T1 | Sentence meaning and translation ordering | 190 |
-| T2 | Semantic-slot extraction from base and random-replacement variants | 350 |
-| T3 | Order-sensitive understanding: grid segmentation and masked-character context | 155 |
-| **Total** | **Three-task benchmark** | **695** |
+<p><a href="README_zh.md">中文说明</a> · <a href="https://github.com/OBI-Future/S-OBI/releases/tag/v1.0.0">Dataset Release</a></p>
 
-The archive is built from 95 base inscriptions. It contains 95 original JPG images and 505 PNG benchmark images. There is no benchmark train/validation/test split. Labels such as `train` that may occur in provenance metadata are source metadata and do not define an official S-OBI split.
+</div>
+
+## Overview
+
+S-OBI is a sentence-level benchmark for evaluating multimodal large language models (MLLMs) on Oracle Bone Inscription (OBI) understanding. It tests whether a model can connect an OBI image with sentence meaning, semantic structure, order, punctuation, and context.
+
+<p align="center">
+  <a href="assets/figures/fig1_obi_sources.png"><img src="assets/figures/fig1_obi_sources.png" alt="S-OBI source examples, paper Figure 1" width="920"></a>
+</p>
+<p align="center"><sub><strong>Paper Fig. 1.</strong> OBI forms covered by S-OBI and examples of sentence-level construction.</sub></p>
+
+<table align="center">
+  <tr>
+    <td align="center"><strong>95</strong><br>base inscriptions</td>
+    <td align="center"><strong>695</strong><br>benchmark questions</td>
+    <td align="center"><strong>3</strong><br>task families</td>
+  </tr>
+</table>
+
+The release archive contains 95 original JPG images and 505 PNG benchmark images. S-OBI has no official train/validation/test split; `train` labels that appear in provenance metadata do not define an S-OBI split.
 
 ## Tasks
 
-- **T1 — sentence meaning and order.** This task includes 95 meaning questions and 95 translation-order questions. Multiple-choice items are scored by choice accuracy; ordering items additionally evaluate unit positions, adjacent pairs, and unit sets.
-- **T2 — semantic slots.** This task contains 95 base items and 255 random-replacement items. A prediction is a JSON object with fields such as `subject`, `action`, `object_or_target`, `time`, `outcome`, `preface`, and `charge`.
-- **T3 — order-sensitive understanding.** This task contains 95 `ordered_grid_segmentation_open` items and 60 `mask30_context_char_mcq` items. The first asks for punctuation restoration from an ordered grid; the second asks the model to recover a masked character from context.
+| Task | Focus | Composition | Items |
+| --- | --- | --- | ---: |
+| **T1** | Sentence meaning and order | 95 meaning questions + 95 translation-order questions | **190** |
+| **T2** | Semantic-slot extraction | 95 base items + 255 random-replacement items | **350** |
+| **T3** | Order-sensitive understanding | 95 ordered-grid segmentation items + 60 masked-character context items | **155** |
+| **Total** | Three task families | — | **695** |
 
-The task files and gold annotations are in the release archive. They are deliberately not committed to this repository.
+### Construction overview
+
+<p align="center">
+  <a href="assets/figures/fig2_construction_pipeline.png"><img src="assets/figures/fig2_construction_pipeline.png" alt="S-OBI construction pipeline, paper Figure 2" width="920"></a>
+</p>
+<p align="center"><sub><strong>Paper Fig. 2.</strong> Construction pipeline and task design in the paper; the formal tasks in the current Release are defined by the table above and the supplied archive.</sub></p>
+
+T1 uses choice accuracy for meaning questions and also evaluates unit positions, adjacent pairs, and unit sets for ordering questions. T2 expects a JSON object with fields such as `subject`, `action`, `object_or_target`, `time`, `outcome`, `preface`, and `charge`. T3 covers punctuation restoration from an ordered grid and masked-character recovery from context.
+
+### Case studies
+
+<p align="center">
+  <a href="assets/figures/fig4_task_case_studies.png"><img src="assets/figures/fig4_task_case_studies.png" alt="S-OBI task case studies, paper Figure 4" width="920"></a>
+</p>
+<p align="center"><sub><strong>Paper Fig. 4.</strong> Semantic matching and contextual reasoning across four difficulty levels, with model responses reproduced from the paper.</sub></p>
+
+All three figures are reproduced from the paper. See [figure sources](assets/figures/README.md) for the original figure numbers and page references; click a figure to view it at full resolution.
 
 ## Download the dataset
 
-Download `sentence-OBI.zip` from the [v1.0.0 GitHub Release](https://github.com/OBI-Future/S-OBI/releases/tag/v1.0.0). The archive is the only dataset distribution covered by this repository. After installing the package, the recommended command is:
+Download `sentence-OBI.zip` from the [v1.0.0 GitHub Release](https://github.com/OBI-Future/S-OBI/releases/tag/v1.0.0). This archive is the only dataset distribution covered by the repository; task files and gold annotations are not committed to Git.
+
+After installing the package, run:
 
 ```bash
 python scripts/download_data.py
 ```
 
-The downloader verifies the SHA-256 digest recorded in [`data/SHA256SUMS`](data/SHA256SUMS), ignores macOS `__MACOSX/` metadata, and safely extracts the archive to `data/sentence-OBI/`. To use an existing local copy, pass `--archive /path/to/sentence-OBI.zip`.
+The downloader verifies the SHA-256 digest in [`data/SHA256SUMS`](data/SHA256SUMS), ignores macOS `__MACOSX/` metadata, and safely extracts the archive to `data/sentence-OBI/`. To use an existing local copy:
 
-For the archive's data terms and known limitations, read [`data/README.md`](data/README.md) and [`docs/dataset.md`](docs/dataset.md).
+```bash
+python scripts/download_data.py --archive /path/to/sentence-OBI.zip
+```
+
+Read [`data/README.md`](data/README.md) and [`docs/dataset.md`](docs/dataset.md) for data terms, known limitations, and the archive schema.
 
 ## Quickstart
 
-The toolkit uses Python 3.10+ and the Python standard library. It does not download a model or call an external API. From a fresh checkout:
+The toolkit requires Python 3.10+ and the Python standard library. It does not download a model or call an external API.
 
 ```bash
 git clone https://github.com/OBI-Future/S-OBI.git
@@ -52,35 +102,32 @@ python -m pip install -e .
 python scripts/download_data.py
 ```
 
-The downloader verifies the release checksum and safely extracts the archive to `data/sentence-OBI/`. To use an existing local copy of the supplied ZIP instead, run `python scripts/download_data.py --archive /path/to/sentence-OBI.zip`.
-
-Validate the extracted formal task files and inspect model-visible inputs:
+Validate the formal task files and inspect model-visible inputs:
 
 ```bash
 python -m sobi.validate --dataset-root data/sentence-OBI
 python -m sobi.inspect --dataset-root data/sentence-OBI --task T1 --limit 3
 ```
 
-Generate a prediction template:
+Generate a prediction template and score a completed prediction file:
 
 ```bash
 python evaluation/score_benchmark.py \
   --dataset-root data/sentence-OBI \
   --write-template
-```
 
-The default template is written to `.runtime/evaluation/prediction_template.jsonl`. Fill its `prediction` field and score it:
-
-```bash
 python evaluation/score_benchmark.py \
   --dataset-root data/sentence-OBI \
   --predictions path/to/predictions.jsonl \
   --output-dir .runtime/evaluation/results/my_model
 ```
 
-The scorer also accepts CSV files with `task_id,prediction` columns. See [`evaluation/README.md`](evaluation/README.md) for the public prediction contract and [`docs/dataset.md`](docs/dataset.md) for the archive schema.
+The template is written to `.runtime/evaluation/prediction_template.jsonl`. The scorer also accepts CSV files with `task_id,prediction` columns. See [`evaluation/README.md`](evaluation/README.md) for the public prediction contract.
 
-For an end-to-end smoke check without a model, run the deterministic mock backend and score its five predictions:
+<details>
+<summary><strong>Optional: run an end-to-end smoke check without a model</strong></summary>
+
+The deterministic mock backend checks the wiring with five predictions. It is for smoke tests only and is not a benchmark baseline.
 
 ```bash
 python -m examples.run_inference \
@@ -94,9 +141,12 @@ python evaluation/score_benchmark.py \
   --output-dir .runtime/evaluation/results/smoke
 ```
 
-The mock backend is for wiring and smoke tests only; it is not a benchmark baseline.
+</details>
 
-To connect an MLLM, provide a Python function in the form `module:function`:
+<details>
+<summary><strong>Connect your own MLLM backend</strong></summary>
+
+Provide a Python function in the form `module:function`. The backend receives `Task.model_input()` without gold answers and must return a JSON-serializable prediction.
 
 ```python
 # my_backend.py
@@ -105,7 +155,6 @@ from typing import Any
 
 def predict(task: Mapping[str, Any]) -> Any:
     # task has task_id, benchmark, question, options, image, and metadata.
-    # Load credentials/configuration from your local environment as needed.
     return call_your_model(task)
 ```
 
@@ -118,19 +167,21 @@ python -m examples.run_inference \
   --output .runtime/predictions/my_model.jsonl
 ```
 
-The backend receives `Task.model_input()` without gold answers and must return a JSON-serializable prediction. Return a choice label or text for multiple-choice tasks, a JSON object for T2, and a string for the open T3 subtask. Keep model credentials and local API configuration outside the repository.
+Return a choice label or text for multiple-choice tasks, a JSON object for T2, and a string for the open T3 subtask. Keep model credentials and local API configuration outside the repository.
+
+</details>
 
 ## Evaluation and reporting
 
 The scorer reports per-item results, task and subtask breakdowns, difficulty and image-kind breakdowns, and the benchmark-level scores `item_macro_primary_score` and `balanced_task_primary_score`. The recommended headline score for this toolkit is `balanced_task_primary_score`, the unweighted mean of the T1, T2, and T3 task means.
 
-These metrics are the weighted protocol shipped with the provided archive. The repository does not claim that running this scorer reproduces an accuracy table from the ICIG 2026 paper: that requires the same model outputs, preprocessing, and evaluation conditions. Do not compare scores across incompatible prediction formats or task subsets.
+These are the weighted metrics shipped with the provided archive. Running this scorer alone does **not** claim to reproduce an accuracy table from the ICIG 2026 paper: reproduction also requires the same model outputs, preprocessing, prompts, and evaluation conditions. Report all three task scores with the aggregate, and state whether any items were omitted.
 
-## Reproducibility and fair use
+## Reproducibility and data terms
 
-Keep the archive version, checksum, model name and revision, image preprocessing, prompt, decoding settings, prediction file, and scorer output with every reported result. Report all three task scores alongside the aggregate, and state whether any items were omitted. A missing prediction receives zero for that item; inspect the per-item CSV before publishing a result.
+Keep the archive version and checksum, model name and revision, image preprocessing, prompt, decoding settings, prediction file, and scorer output with every reported result. A missing prediction receives zero for that item; inspect the per-item CSV before publishing results.
 
-Use the archive and annotations only in ways permitted by the rights holders and the release terms. The repository's MIT license applies to the repository code. The archive has no separate license statement in the supplied materials, so the data license is currently unspecified and must not be inferred from the code license. See [`data/README.md`](data/README.md) before redistributing or making a derivative dataset.
+The repository's MIT license applies to the code. The supplied archive has no separate license statement, so the data license is currently **unspecified** and must not be inferred from the code license. Use and redistribute the archive only as permitted by the rights holders; read [`data/README.md`](data/README.md) before making a derivative dataset.
 
 ## Citation
 
@@ -147,16 +198,15 @@ If you use S-OBI, cite the ICIG 2026 paper:
 
 The machine-readable citation is in [`CITATION.cff`](CITATION.cff). No DOI or page range is asserted until an official bibliographic record is available.
 
-## Repository layout
+## Repository map
 
-```text
-evaluation/             scoring protocol and scorer
-examples/               model-agnostic prediction examples
-scripts/                local data and prediction utilities
-src/sobi/               reusable dataset utilities
-data/README.md          archive instructions and data terms
-data/SHA256SUMS         release-asset checksum
-docs/dataset.md         detailed schema and task accounting
-```
+| Path | Purpose |
+| --- | --- |
+| `evaluation/` | Scoring protocol and scorer |
+| `examples/` | Model-agnostic prediction examples |
+| `scripts/` | Local data and prediction utilities |
+| `src/sobi/` | Reusable dataset utilities |
+| `data/README.md` | Archive instructions and data terms |
+| `docs/dataset.md` | Detailed schema and task accounting |
 
 See [`CHANGELOG.md`](CHANGELOG.md) for release notes.
